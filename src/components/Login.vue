@@ -1,6 +1,6 @@
 <template>
   <div id="login">
-    <md-card md-with-hover>
+    <md-card md-with-hover v-if="!loading">
         <md-layout  md-align="center" md-flex="5">
             <md-card-header  style="margin-right: 8rem; margin-left: 8rem" >
                 <div class="md-title">Login</div>
@@ -11,84 +11,100 @@
             <form novalidate @submit.stop.prevent="submit">
                 <md-input-container :class="{'md-input-invalid': !validateEmail}" >
                     <label>Email </label>
-                    <md-input v-model.lazy.trim="email" required type="email" ></md-input>
+                    <md-input v-model.lazy.trim="user.email" required type="email" ></md-input>
                     <span class="md-error">Not a valid Email Address</span>
                 </md-input-container>
                 <md-input-container :class="{'md-input-invalid': !validatePassword}">
                     <label>Password </label>
-                    <md-input v-model.lazy="password" type="password" required></md-input>
-                    <span class="md-error">Password Must Be 6 Characters</span>
+                    <md-input v-model.lazy="user.password" type="password" required></md-input>
+                    <span class="md-error">Password Must Be atleast 6 Characters</span>
                 </md-input-container>
             </form>
         </md-card-content>
 
         <md-card-actions>
-            <md-button class="has-ripple md-raised md-primary" :disabled="formValid"> <md-ink-ripple />Login</md-button>
-            <md-button class="has-ripple md-raised md-accent" @click="clearForm"> <md-ink-ripple />Clear Form</md-button>
+            <md-button class="has-ripple md-raised md-primary" :disabled="formValid" @click="submit" > <md-ink-ripple />Login</md-button>
+            <md-button class="has-ripple md-raised md-warn" @click="clearForm"> <md-ink-ripple />Clear Form</md-button>
         </md-card-actions>
+        <md-layout  md-align="center" md-flex="5">
+          <span style="color:red" v-if="failed">Username or password incorrect</span>
+        </md-layout>
     </md-card>
+    <md-layout  md-align="center" md-flex="5" v-if="loading">
+          <md-spinner  :md-size="150" md-indeterminate class="md-warn" v-if="loading"></md-spinner>
+    </md-layout>
   </div>
 </template>
 
 <script>
+import auth from '../services/authenticate'
 export default {
   name: "login",
   data() {
     return {
-      email: "",
-      password: "",
-      emailValid: false,
-      passwordValid: false
+      user: {
+        email: "",
+        password: ""
+      },
+      loading: false,
+      failed: false,
     };
   },
   methods: {
     clearForm: function() {
-      this.email = "";
-      this.password = "";
+      this.user.email = "";
+      this.user.password = "";
+    },
+    submit: function() {
+      this.loading = true;
+      this.$http.post('users/login', this.user)
+        .then((res) => {
+          this.$cookie.set('x-auth', res.body.token);
+          auth.authenticate(true);
+          this.$router.push('/main');
+          this.loading = false;
+        }, (err) => {
+          console.log(err);
+          this.failed = true;
+          this.loading = false;
+        });
+
     }
   },
   computed: {
     validateEmail: function() {
+      this.failed = false;
       const emailReg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
       let result = false;
-      if (emailReg.test(this.email)) {
+      if (emailReg.test(this.user.email)) {
         result = true;
       }
-      if (this.email.length === 0) {
+      if (this.user.email.length === 0) {
           result = true;
       }
-      this.emailValid = result;
       return result;
     },
-    dirtiedEmail: function() {
-      return !this.email.length === 0;
-    },
     validatePassword: function() {
+      this.failed = false;
       const passwordReg = /^[a-zA-Z0-9]{6,}$/; // 6 Characters
       let result = false;
       if (passwordReg.test(this.password)) {
         result = true;
       }
-      if (this.password.length === 0) {
+      if (this.user.password.length === 0) {
           result = true;
       }
-      this.passwordValid = result;
       return result;
     },
     formValid: function() {
       let disabled = true;
-      if (this.email.length === 0 || this.password.length === 0) {
+      if (this.user.email.length === 0 || this.user.password.length === 0) {
         disabled = true;
-      } else if (this.emailValid && this.passwordValid) {
+      } else if (this.validateEmail && this.validatePassword) {
         disabled = false;
       }
       return disabled;
     },
-    isValidStyle: function() {
-        return {
-
-        }
-    }
   }
 };
 </script>
