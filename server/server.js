@@ -14,12 +14,34 @@ const port = process.env.PORT;
 let app = express();
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(__dirname + '/../'));
+
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,PATCH,DELETE')
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
+app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname+'index.html'));
+});
+
 
 app.post('/todos', authenticate, (req, res) => {
     let todo = new Todo({
         text: req.body.text,
         _creator: req.user._id
     });
+
+    if (_.isBoolean(req.body.completed) && req.body.completed) {
+        todo.completedAt = new Date().getTime();
+        todo.completed = true;
+    } else {
+        todo.completed = false;
+        todo.completedAt = null;
+    }
 
     todo.save().then((doc) => {
         res.send(doc);
@@ -129,7 +151,7 @@ app.post('/users/login', (req, res) => {
 
     User.findByCredentials(body.email, body.password).then((user) => {
         return user.generateAuthToken().then((token) => {
-            res.header('x-auth', token).send({user, token});
+            res.header('x-auth', token).send({ user, token });
         });
     }).catch((e) => {
         res.status(404).send();
@@ -143,6 +165,8 @@ app.delete('/users/me/token', authenticate, (req, res) => {
         res.status(400).send();
     });
 });
+
+
 
 app.listen(port, () => {
     console.log(`Started on port ${port}`);

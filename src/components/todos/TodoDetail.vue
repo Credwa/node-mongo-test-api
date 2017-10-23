@@ -63,7 +63,7 @@ export default {
         })
         .then(
           res => {
-            console.log(res);
+            this.$emit("todoDeleted", this.todoData._id);
           },
           err => {
             console.log(err);
@@ -81,7 +81,7 @@ export default {
         )
         .then(
           res => {
-            console.log(res);
+            this.$emit("todoCompleted", this.todoData._id);
           },
           err => {
             console.log(err);
@@ -99,7 +99,7 @@ export default {
         )
         .then(
           res => {
-            console.log(res);
+            this.$emit("todoIncompleted", this.todoData._id);
           },
           err => {
             console.log(err);
@@ -107,7 +107,6 @@ export default {
         );
     },
     editTodo: function() {
-      console.log(this.tempText);
       this.editMode = !this.editMode;
       if (!this.editMode) {
         this.$http

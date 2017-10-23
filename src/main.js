@@ -13,7 +13,7 @@ Vue.use(VueRouter);
 Vue.use(VueMaterial);
 Vue.use(VueCookie);
 
-Vue.http.options.root = 'http://localhost:3000';
+Vue.http.options.root = 'https://secret-eyrie-85925.herokuapp.com';
 // Vue.http.interceptors.push((req, next) => {
 //   console.log(req);
 //   console.log(req.headers.get('x-auth'));
