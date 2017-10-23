@@ -2,7 +2,6 @@
 .eslintrc.json
 server/config/config.json
 .DS_Store
-dist/
 npm-debug.log
 yarn-error.log
 
