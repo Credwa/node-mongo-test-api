@@ -128,22 +128,17 @@ export default {
       });
     },
     comTodoWasDeleted: function(e) {
-      this.completedTodos = this.completedTodos.filter(todo => {
+      this.todos = this.todos.filter(todo => {
         return todo._id !== e;
       });
     },
     todoWasIncompleted: function(e) {
-      console.log(this.todos);
-      this.todos.push({ text: "tell", completed: "false" });
-      console.log(this.todos);
+      this.completedTodos = this.completedTodos.filter(todo => {
+        return todo._id !== e;
+      });
     },
     todoWasCompleted: function(e) {
-      let tempTodo = {};
       this.completedTodos = this.completedTodos.filter(todo => {
-        if (todo._id === e) {
-          tempTodo = todo;
-        }
-        this.completedTodos = tempTodo;
         return todo._id !== e;
       });
     }
