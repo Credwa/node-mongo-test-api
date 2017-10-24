@@ -133,14 +133,9 @@ export default {
       });
     },
     todoWasIncompleted: function(e) {
-      let tempTodo = {};
-      this.todos = this.todos.filter(todo => {
-        if (todo._id === e) {
-          tempTodo = todo;
-        }
-        this.todos = tempTodo;
-        return todo._id !== e;
-      });
+      console.log(this.todos);
+      this.todos.push({ text: "tell", completed: "false" });
+      console.log(this.todos);
     },
     todoWasCompleted: function(e) {
       let tempTodo = {};
