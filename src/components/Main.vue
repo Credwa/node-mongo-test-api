@@ -136,11 +136,13 @@ export default {
       this.completedTodos = this.completedTodos.filter(todo => {
         return todo._id !== e;
       });
+      this.$router.push('/main');
     },
     todoWasCompleted: function(e) {
       this.completedTodos = this.completedTodos.filter(todo => {
         return todo._id !== e;
       });
+      this.$router.push('/main');
     }
   },
   mounted() {
