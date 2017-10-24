@@ -39,7 +39,7 @@
             <md-layout >
                 <md-layout md-flex="70">
                     <md-layout md-align="center" >
-                        <div v-for="todo in todosComputed" :key="todo._id">
+                        <div v-for="todo in todos" :key="todo._id">
                             <todo-detail :todoData="todo" @todoDeleted="incTodoWasDeleted($event)" @todoCompleted="todoWasCompleted($event)"></todo-detail>
                         </div>
                     </md-layout>
@@ -48,7 +48,7 @@
             <md-layout md-align="end">
                 <md-layout md-flex="70" >
                     <md-layout>
-                        <div v-for="todo in completedTodosComputed" :key="todo._id">
+                        <div v-for="todo in completedTodos" :key="todo._id">
                             <todo-detail :todoData="todo" @todoDeleted="comTodoWasDeleted($event)" @todoIncompleted="todoWasIncompleted($event)"></todo-detail>
                         </div>
                     </md-layout>
@@ -133,31 +133,25 @@ export default {
       });
     },
     todoWasIncompleted: function(e) {
+      let tempTodo = {};
       this.todos = this.todos.filter(todo => {
         if (todo._id === e) {
-          this.completedTodos.push(todo);
+          tempTodo = todo;
         }
-        console.log(this.completedTodos);
+        this.todos = tempTodo;
         return todo._id !== e;
       });
     },
     todoWasCompleted: function(e) {
+      let tempTodo = {};
       this.completedTodos = this.completedTodos.filter(todo => {
         if (todo._id === e) {
-          this.todos.push(todo);
+          tempTodo = todo;
         }
-        console.log(this.todos);
+        this.completedTodos = tempTodo;
         return todo._id !== e;
       });
     }
-  },
-  computed: {
-      todosComputed: function() {
-          return this.todos;
-      },
-      completedTodosComputed: function() {
-          return this.completedTodos;
-      }
   },
   mounted() {
     this.$http
