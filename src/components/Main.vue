@@ -140,17 +140,19 @@ export default {
         }
         return todo._id !== e;
       });
-      this.$router.push("/main");
+      this.todos.push(tempTodo);
+      //this.$router.push("/main");
     },
     todoWasCompleted: function(e) {
       let tempTodo = {};
-      this.completedTodos = this.completedTodos.filter(todo => {
+      this.todos = this.todos.filter(todo => {
         if (todo._id === e) {
           tempTodo = todo;
         }
         return todo._id !== e;
       });
-      this.$router.push("/main");
+      this.completedTodos.push(tempTodo);
+      //this.$router.push("/main");
     }
   },
   mounted() {
