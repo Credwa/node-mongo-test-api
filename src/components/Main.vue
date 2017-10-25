@@ -133,16 +133,24 @@ export default {
       });
     },
     todoWasIncompleted: function(e) {
+      let tempTodo = {};
       this.completedTodos = this.completedTodos.filter(todo => {
+        if (todo._id === e) {
+          tempTodo = todo;
+        }
         return todo._id !== e;
       });
-      this.$router.push('/main');
+      this.$router.push("/main");
     },
     todoWasCompleted: function(e) {
+      let tempTodo = {};
       this.completedTodos = this.completedTodos.filter(todo => {
+        if (todo._id === e) {
+          tempTodo = todo;
+        }
         return todo._id !== e;
       });
-      this.$router.push('/main');
+      this.$router.push("/main");
     }
   },
   mounted() {
