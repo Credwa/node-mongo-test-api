@@ -142,8 +142,7 @@ export default {
       });
       tempTodo.completed = false;
       tempTodo.completedAt = null;
-      this.todos.push(tempTodo);
-      //this.$router.push("/main");
+      this.todos.unshift(tempTodo);
     },
     todoWasCompleted: function(e) {
       let tempTodo = {};
@@ -155,8 +154,7 @@ export default {
         tempTodo.completedAt = new Date().getTime();
         return todo._id !== e;
       });
-      this.completedTodos.push(tempTodo);
-      //this.$router.push("/main");
+      this.completedTodos.unshift(tempTodo);
     }
   },
   mounted() {
