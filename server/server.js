@@ -28,6 +28,17 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname+'index.html'));
 });
 
+app.get('/login', function (req, res) {
+    res.sendFile(path.join(__dirname+'index.html'));
+});
+
+app.get('/signup', function (req, res) {
+    res.sendFile(path.join(__dirname+'index.html'));
+});
+
+app.get('/main', function (req, res) {
+    res.sendFile(path.join(__dirname+'index.html'));
+});
 
 app.post('/todos', authenticate, (req, res) => {
     let todo = new Todo({

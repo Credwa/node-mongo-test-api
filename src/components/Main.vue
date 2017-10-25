@@ -140,8 +140,8 @@ export default {
         }
         return todo._id !== e;
       });
-      tempTodo.completed = true;
-      tempTodo.completedAt = new Date().getTime();
+      tempTodo.completed = false;
+      tempTodo.completedAt = null;
       this.todos.push(tempTodo);
       //this.$router.push("/main");
     },
