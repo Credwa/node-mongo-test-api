@@ -35,7 +35,7 @@
             </md-card-content>
 
             <md-card-actions>
-                <md-button class="md-primary" @click="editTodo">Done</md-button>
+                <md-button class="md-primary" @click="editTodo" @keyup.enter.native="editTodo">Done</md-button>
                 <md-button class="md-accent" @click="completeTodo" v-if="!todoData.completed">Complete</md-button>
                 <md-button class="md-accent" @click="incompleteTodo" v-if="todoData.completed"> Incomplete</md-button>
                 <md-button class="md-warn" @click="deleteTodo">Delete</md-button>

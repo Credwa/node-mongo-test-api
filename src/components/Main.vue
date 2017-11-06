@@ -27,7 +27,7 @@
             </md-card-content>
 
             <md-card-actions>
-                <md-button class="md-primary" @click="doneCreating">Done</md-button>
+                <md-button class="md-primary" @click="doneCreating" @keyup.enter.native="doneCreating">Done</md-button>
                 <md-button class="md-warn" @click="cancel">Cancel</md-button>
             </md-card-actions>
         </md-card>

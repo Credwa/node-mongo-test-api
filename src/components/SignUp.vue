@@ -28,7 +28,7 @@
         </md-card-content>
 
         <md-card-actions>
-            <md-button class="has-ripple md-raised md-primary" :disabled="formValid" @click="submit"> <md-ink-ripple />Sign Up</md-button>
+            <md-button class="has-ripple md-raised md-primary" :disabled="formValid" @click="submit"  @keyup.enter.native="submit"> <md-ink-ripple />Sign Up</md-button>
             <md-button class="has-ripple md-raised md-warn" @click="clearForm"> <md-ink-ripple />Clear Form</md-button>
         </md-card-actions>
         <md-layout  md-align="center" md-flex="5">
