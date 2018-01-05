@@ -9,22 +9,6 @@
 </template>
 
 <script>
-const binance = require('node-binance-api');
-
-binance.websockets.trades(['BNBBTC', 'ETHBTC'], (trades) => {
-  const {
-    e: eventType,
-    E: eventTime,
-    s: symbol,
-    p: price,
-    q: quantity,
-    m: maker,
-    a: tradeId,
-  } = trades;
-  console.log(
-    `${symbol} trade update. price: ${price}, quantity: ${quantity}, maker: ${maker}`,
-  );
-});
 export default {
   name: 'home',
   data () {
