@@ -32,7 +32,7 @@ git clone https://[insert username]:[insert password]@github.com/Credwa/node-mon
 cd into repo
 
 ```
-cd arbitrage
+cd node-mongo-test-api
 ```
 
 Install project dependencies
