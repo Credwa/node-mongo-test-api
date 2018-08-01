@@ -72,9 +72,7 @@ export default {
   data() {
     return {
       todos: [],
-      completedTodos: [
-        { completedAt: 59320519350, completed: true, text: "test" }
-      ],
+      completedTodos: [{}],
       err: false,
       create: false,
       createOption: 0,

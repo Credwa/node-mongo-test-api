@@ -1,25 +1,24 @@
-import Vue from 'vue';
-import VueResource from 'vue-resource'
-import VueCookie from 'vue-cookie';
-import VueRouter from 'vue-router';
-import VueMaterial from 'vue-material';
+import Vue from "vue";
+import VueResource from "vue-resource";
+import VueCookie from "vue-cookie";
+import VueRouter from "vue-router";
+import VueMaterial from "vue-material";
 
-import App from './App.vue';
-import { routes } from './routes.js'
-
+import App from "./App.vue";
+import { routes } from "./routes.js";
 
 Vue.use(VueResource);
 Vue.use(VueRouter);
 Vue.use(VueMaterial);
 Vue.use(VueCookie);
 
-Vue.http.options.root = 'https://secret-eyrie-85925.herokuapp.com';
+Vue.http.options.root = "https://secret-eyrie-85925.herokuapp.com/";
 // Vue.http.interceptors.push((req, next) => {
 //   console.log(req);
-//   console.log(req.headers.get('x-auth'));
+//   console.log(req.headers.get("x-auth"));
 //   next(res => {
 //     console.log(res);
-//     console.log(res.headers.get('x-auth'));
+//     console.log(res.headers.get("x-auth"));
 //   });
 // });
 
@@ -40,21 +39,21 @@ Vue.http.options.root = 'https://secret-eyrie-85925.herokuapp.com';
 
 const router = new VueRouter({
   routes,
-  mode: 'history'
+  mode: "history"
 });
 
-Vue.material.registerTheme('default', {
-  primary: 'blue',
-  accent: 'green',
-  warn: 'red',
+Vue.material.registerTheme("default", {
+  primary: "blue",
+  accent: "green",
+  warn: "red",
   background: {
-    color: 'grey',
+    color: "grey",
     hue: 100
   }
 });
 
 new Vue({
-  el: '#app',
+  el: "#app",
   router,
   render: h => h(App)
 });
