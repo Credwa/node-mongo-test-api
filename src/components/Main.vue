@@ -35,7 +35,7 @@
         </md-layout>
 
 
-        <md-layout md-row v-if="!err">
+        <md-layout md-row>
             <md-layout >
                 <md-layout md-flex="70">
                     <md-layout md-align="center" >
@@ -179,9 +179,13 @@ export default {
           this.completedTodos.splice(0, 1);
         },
         err => {
+          console.log(err);
           this.err = true;
         }
-      );
+      )
+      .catch(e => {
+        console.log(e);
+      });
   },
   beforeRouteEnter(to, from, next) {
     if (auth.authenticate) {

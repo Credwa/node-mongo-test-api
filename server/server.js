@@ -73,13 +73,16 @@ app.post("/todos", authenticate, (req, res) => {
 });
 
 app.get("/todos", authenticate, (req, res) => {
+  console.log(1);
   Todo.find({
     _creator: req.user._id
   }).then(
     todos => {
+      console.log(todos);
       res.send({ todos });
     },
     e => {
+      console.log(e);
       res.status(400).send(e);
     }
   );
