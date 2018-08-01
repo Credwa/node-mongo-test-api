@@ -66,22 +66,24 @@ export default {
     },
     submit: function() {
       this.loading = true;
-      this.$http.post('users', this.user)
-        .then((res) => {
+      this.$http.post("users", this.user).then(
+        res => {
           this.success = true;
           setTimeout(() => {
-            this.$router.push('/login');
-          }, 2000)
-        }, (err) => {
+            this.$router.push("/login");
+          }, 2000);
+        },
+        err => {
           this.exists = true;
           this.loading = false;
-        });
+        }
+      );
     }
   },
   computed: {
     validateEmail: function() {
       this.exists = false;
-      const emailReg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      const emailReg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       let result = false;
       if (emailReg.test(this.user.email)) {
         result = true;
@@ -124,5 +126,4 @@ export default {
 </script>
 
 <style>
-
 </style>

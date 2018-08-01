@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import auth from '../services/authenticate'
+import auth from "../services/authenticate";
 export default {
   name: "login",
   data() {
@@ -47,7 +47,7 @@ export default {
         password: ""
       },
       loading: false,
-      failed: false,
+      failed: false
     };
   },
   methods: {
@@ -57,30 +57,31 @@ export default {
     },
     submit: function() {
       this.loading = true;
-      this.$http.post('users/login', this.user)
-        .then((res) => {
-          this.$cookie.set('x-auth', res.body.token);
+      this.$http.post("users/login", this.user).then(
+        res => {
+          this.$cookie.set("x-auth", res.body.token);
           auth.authenticate(true);
-          this.$router.push('/main');
+          this.$router.push("/main");
           this.loading = false;
-        }, (err) => {
+        },
+        err => {
           console.log(err);
           this.failed = true;
           this.loading = false;
-        });
-
+        }
+      );
     }
   },
   computed: {
     validateEmail: function() {
       this.failed = false;
-      const emailReg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      const emailReg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       let result = false;
       if (emailReg.test(this.user.email)) {
         result = true;
       }
       if (this.user.email.length === 0) {
-          result = true;
+        result = true;
       }
       return result;
     },
@@ -92,7 +93,7 @@ export default {
         result = true;
       }
       if (this.user.password.length === 0) {
-          result = true;
+        result = true;
       }
       return result;
     },
@@ -104,11 +105,10 @@ export default {
         disabled = false;
       }
       return disabled;
-    },
+    }
   }
 };
 </script>
 
 <style>
-
 </style>

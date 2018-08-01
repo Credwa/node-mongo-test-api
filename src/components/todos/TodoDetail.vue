@@ -24,7 +24,7 @@
             <md-card-header>
                 <md-input-container>
                     <label>Edit Text</label>
-                    <md-input v-model="todoData.text"></md-input>
+                    <md-input @keyup.enter.native="editTodo" v-model="todoData.text"></md-input>
                 </md-input-container>
             </md-card-header>
 
@@ -133,5 +133,4 @@ export default {
 </script>
 
 <style>
-
 </style>
