@@ -10,7 +10,7 @@
             <md-card-header>
                 <md-input-container>
                     <label>To do Title</label>
-                    <md-input v-model="newTodo"></md-input>
+                    <md-input v-model="newTodo" @keyup.enter.native="doneCreating"></md-input>
                 </md-input-container>
             </md-card-header>
 
